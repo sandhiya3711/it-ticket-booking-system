@@ -1,0 +1,69 @@
+{
+  "categories": [
+    {
+      "id": "cat-access",
+      "name": "Access & Authentication",
+      "subcategories": [
+        "Password Reset",
+        "Account Lockout",
+        "Login Failure"
+      ],
+      "keywords": [
+        "password", "login", "auth", "credentials", "locked", "sso", "mfa", "2fa",
+        "token", "authenticator", "pin", "expired", "access denied", "unauthorized", "sign in"
+      ]
+    },
+    {
+      "id": "cat-network",
+      "name": "Network & Connectivity",
+      "subcategories": [
+        "VPN Issue",
+        "Internet Connectivity",
+        "DNS Issue"
+      ],
+      "keywords": [
+        "vpn", "tunnel", "disconnect", "gateway", "wifi", "ethernet", "internet",
+        "offline", "dns", "resolve", "packet loss", "ping", "atlas vpn", "ip address", "network"
+      ]
+    },
+    {
+      "id": "cat-software",
+      "name": "Software & Applications",
+      "subcategories": [
+        "Application Crash",
+        "Installation Issue",
+        "Application Login"
+      ],
+      "keywords": [
+        "crash", "freeze", "hang", "unresponsive", "install", "upgrade", "update",
+        "corrupt", "plugin", "zenith crm", "worksphere", "clouddesk", "dll", "exception"
+      ]
+    },
+    {
+      "id": "cat-hardware",
+      "name": "Hardware",
+      "subcategories": [
+        "Laptop Issue",
+        "Keyboard/Mouse",
+        "Display Issue"
+      ],
+      "keywords": [
+        "laptop", "screen", "monitor", "display", "hdmi", "keyboard", "mouse",
+        "trackpad", "battery", "overheating", "docking station", "charger", "power", "flicker"
+      ]
+    },
+    {
+      "id": "cat-email",
+      "name": "Email & Collaboration",
+      "subcategories": [
+        "Email Issue",
+        "Teams/Chat Issue",
+        "Calendar Issue"
+      ],
+      "keywords": [
+        "novamail", "email", "inbox", "outlook", "teams", "chat", "meeting",
+        "calendar", "invite", "attachment", "sync", "mailbox", "bounce", "spam"
+      ]
+    }
+  ]
+}

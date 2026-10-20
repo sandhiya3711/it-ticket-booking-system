@@ -1,0 +1,325 @@
+[
+  {
+    "article_id": "KB-001",
+    "title": "Resetting a Locked NovaMail Account & Clearing Auth Tokens",
+    "category": "Access & Authentication",
+    "subcategory": "Account Lockout",
+    "application": "NovaMail",
+    "symptoms": [
+      "User locked out of NovaMail after multiple failed login attempts",
+      "Error: AUTH-403 Account Disabled Temporarily",
+      "Repeated prompt asking for corporate credentials"
+    ],
+    "error_codes": ["AUTH-403", "ERR-LOCK-01", "TOKEN_EXPIRED"],
+    "keywords": ["novamail", "locked", "account lockout", "credentials", "token", "auth-403", "password", "security", "unlock"],
+    "resolution_steps": [
+      "1. Verify caller identity using 2-factor voice confirmation or employee badge ID.",
+      "2. Open the NovaMail Admin Console at identity.corp.internal/admin.",
+      "3. Search for the user by corporate email address.",
+      "4. Click 'Unlock Account' and select 'Force Invalidation of Active Refresh Tokens'.",
+      "5. Have the user clear their local desktop cache: delete ~/.novamail/session_cache or clear browser local storage.",
+      "6. Ask the user to re-authenticate with their primary password and approve MFA push."
+    ],
+    "estimated_mins": 5,
+    "confidence_threshold": 0.45
+  },
+  {
+    "article_id": "KB-002",
+    "title": "Self-Service Password Reset for Orion HR Portal",
+    "category": "Access & Authentication",
+    "subcategory": "Password Reset",
+    "application": "Orion HR Portal",
+    "symptoms": [
+      "User forgotten password or expired credential",
+      "Error: PWD-EXP-88 Credential Expired",
+      "Unable to log into payroll or benefits portal"
+    ],
+    "error_codes": ["PWD-EXP-88", "AUTH-401-INVALID-PASS"],
+    "keywords": ["orion", "hr portal", "password reset", "expired", "forgot password", "payroll", "credentials"],
+    "resolution_steps": [
+      "1. Direct user to the self-service portal: sso.internal.corp/self-reset.",
+      "2. Guide the user to enter their employee number and registered SMS phone number.",
+      "3. Enter the 6-digit one-time verification code received on the mobile device.",
+      "4. Enter a new password conforming to corporate policy (min 14 characters, 1 uppercase, 1 symbol, 1 digit).",
+      "5. Wait 60 seconds for Active Directory propagation before logging back into Orion HR."
+    ],
+    "estimated_mins": 4,
+    "confidence_threshold": 0.45
+  },
+  {
+    "article_id": "KB-003",
+    "title": "Atlas VPN Gateway Timeout and Tunnel Disconnection (ERR-TUNNEL-504)",
+    "category": "Network & Connectivity",
+    "subcategory": "VPN Issue",
+    "application": "Atlas VPN",
+    "symptoms": [
+      "Atlas VPN client hangs at 'Connecting (90%)...'",
+      "Error code: ERR-TUNNEL-504 Gateway Negotiation Failed",
+      "Sudden disconnect every 10 minutes when working from home"
+    ],
+    "error_codes": ["ERR-TUNNEL-504", "VPN_TIMEOUT_02", "TUNNEL_DROP"],
+    "keywords": ["atlas vpn", "vpn", "gateway timeout", "tunnel", "disconnect", "err-tunnel-504", "remote work", "home network"],
+    "resolution_steps": [
+      "1. Disconnect Atlas VPN completely and right-click the system tray icon to select 'Quit'.",
+      "2. Open Settings in Atlas VPN client and switch Protocol from UDP to TCP (Port 443 fallback).",
+      "3. Change the Gateway region from 'Auto-Detect' to the nearest secondary regional hub (e.g., US-East-02).",
+      "4. Flush local DNS: run 'ipconfig /flushdns' (Windows) or 'sudo dscacheutil -flushcache' (macOS).",
+      "5. Re-launch Atlas VPN as Administrator and establish connection."
+    ],
+    "estimated_mins": 7,
+    "confidence_threshold": 0.45
+  },
+  {
+    "article_id": "KB-004",
+    "title": "Resolving DNS Probe Failure & Internal Intranet Resolution",
+    "category": "Network & Connectivity",
+    "subcategory": "DNS Issue",
+    "application": "Network",
+    "symptoms": [
+      "Browser displays: DNS_PROBE_FINISHED_NXDOMAIN when accessing internal tools",
+      "Public websites load normally but internal *.corp.internal links fail",
+      "Ping to intranet hostnames returns 'Unknown host'"
+    ],
+    "error_codes": ["DNS_PROBE_FINISHED_NXDOMAIN", "ERR_NAME_NOT_RESOLVED"],
+    "keywords": ["dns", "dns_probe_finished_nxdomain", "intranet", "internal domains", "nxdomain", "nameserver", "resolver"],
+    "resolution_steps": [
+      "1. Check if the user is connected to corporate VPN (Atlas VPN is required for internal DNS resolution).",
+      "2. Verify DNS server settings: Primary must point to 10.100.1.10 and Secondary to 10.100.1.11.",
+      "3. Run command prompt as Admin and execute: 'netsh interface ip set dns name=\"Wi-Fi\" source=dhcp'.",
+      "4. Clear DNS client cache: 'ipconfig /flushdns'.",
+      "5. Restart the 'Dnscache' Windows service or reboot workstation if local hosts file was modified."
+    ],
+    "estimated_mins": 6,
+    "confidence_threshold": 0.45
+  },
+  {
+    "article_id": "KB-005",
+    "title": "Zenith CRM Crash on Startup or Memory Leak Exception",
+    "category": "Software & Applications",
+    "subcategory": "Application Crash",
+    "application": "Zenith CRM",
+    "symptoms": [
+      "Zenith CRM closes immediately after splash screen",
+      "Error: Exception 0xC0000005 in ZenithCore.dll",
+      "App hangs on 'Loading customer pipeline cache...'"
+    ],
+    "error_codes": ["0xC0000005", "ZENITH_HEAP_OOM", "CRASH_STARTUP"],
+    "keywords": ["zenith crm", "crash", "zenithcore.dll", "exception", "freeze", "hang", "crm", "memory leak"],
+    "resolution_steps": [
+      "1. Terminate all orphaned Zenith background processes in Task Manager (ZenithCRM.exe, ZenithWorker.exe).",
+      "2. Navigate to %LOCALAPPDATA%\\ZenithCRM\\Cache\\ and delete all files in the 'DataCache' and 'Temp' directories.",
+      "3. Ensure the workstation has Microsoft Visual C++ 2019-2022 Redistributable installed.",
+      "4. Run Zenith CRM launcher as Administrator and hold Shift key while opening to trigger 'Safe Mode' launch.",
+      "5. If error persists, run the Zenith Repair Utility located in C:\\Program Files\\Zenith CRM\\RepairTool.exe."
+    ],
+    "estimated_mins": 8,
+    "confidence_threshold": 0.45
+  },
+  {
+    "article_id": "KB-006",
+    "title": "WorkSphere Suite Installation Failure (Error CODE-1603)",
+    "category": "Software & Applications",
+    "subcategory": "Installation Issue",
+    "application": "WorkSphere",
+    "symptoms": [
+      "WorkSphere installer rolls back at 85% progress",
+      "MSI installation failed with Fatal Error 1603",
+      "Company Portal reports installation error: 0x87D1041C"
+    ],
+    "error_codes": ["CODE-1603", "0x87D1041C", "INSTALL_ROLLBACK"],
+    "keywords": ["worksphere", "installation", "install failed", "code-1603", "installer", "software center", "rollback"],
+    "resolution_steps": [
+      "1. Verify that previous partial versions of WorkSphere are completely uninstalled from Control Panel.",
+      "2. Clear temp install files: delete all contents of C:\\Windows\\Temp and %TEMP%.",
+      "3. Ensure antivirus real-time inspection is not locking the installer DLLs.",
+      "4. Open elevated Command Prompt and execute installer with logging: 'msiexec /i WorkSphereSetup.msi /l*v C:\\ws_install.log /qn'.",
+      "5. Inspect the generated log if error persists, or push reinstall package via Intune / Company Portal."
+    ],
+    "estimated_mins": 10,
+    "confidence_threshold": 0.45
+  },
+  {
+    "article_id": "KB-007",
+    "title": "CloudDesk Virtual Desktop Black Screen or Input Lag",
+    "category": "Software & Applications",
+    "subcategory": "Application Crash",
+    "application": "CloudDesk",
+    "symptoms": [
+      "CloudDesk opens to a persistent black screen after authentication",
+      "Cursor moves but desktop icons and taskbar fail to render",
+      "Error: VDI-VIDEO-TIMEOUT Session Dropped"
+    ],
+    "error_codes": ["VDI-VIDEO-TIMEOUT", "ERR_BLACK_SCREEN_09"],
+    "keywords": ["clouddesk", "virtual desktop", "vdi", "black screen", "lag", "display", "session", "cloud"],
+    "resolution_steps": [
+      "1. Press Ctrl + Alt + Delete inside CloudDesk and click 'Sign Out' (do not just close window).",
+      "2. In CloudDesk client settings, disable 'Hardware GPU Acceleration' toggle.",
+      "3. Switch display setting from 'Full Screen All Monitors' to 'Windowed (1920x1080)'.",
+      "4. Re-launch CloudDesk session; this allocates a fresh virtual display driver pipe.",
+      "5. If still stuck, restart the virtual workspace session from the CloudDesk Self-Care portal."
+    ],
+    "estimated_mins": 5,
+    "confidence_threshold": 0.45
+  },
+  {
+    "article_id": "KB-008",
+    "title": "Fixing External Monitor Flicker and DisplayPort Detection Issues",
+    "category": "Hardware",
+    "subcategory": "Display Issue",
+    "application": "Hardware",
+    "symptoms": [
+      "External monitor goes black for 2-3 seconds intermittently",
+      "Windows displays 'Display connection might be limited'",
+      "Second monitor not detected through USB-C / Thunderbolt dock"
+    ],
+    "error_codes": ["DISP_NEGOTIATE_FAIL", "ERR_DOCK_DP_01"],
+    "keywords": ["monitor", "display", "flicker", "screen", "hdmi", "displayport", "usb-c", "dock", "docking station", "black screen"],
+    "resolution_steps": [
+      "1. Power-cycle the docking station: unplug power cable from dock, wait 15 seconds, and reconnect.",
+      "2. Unplug and re-seat both ends of the DisplayPort / HDMI cable directly into monitor and dock.",
+      "3. Lower refresh rate from 144Hz/120Hz to 60Hz in Windows Display Settings > Advanced Display.",
+      "4. Open Intel Graphics Command Center / AMD Software and disable 'Display Power Savings'.",
+      "5. Update docking station firmware using the Dell/HP Command Update utility."
+    ],
+    "estimated_mins": 7,
+    "confidence_threshold": 0.45
+  },
+  {
+    "article_id": "KB-009",
+    "title": "Laptop Battery Draining Rapidly and Excessive Fan Noise",
+    "category": "Hardware",
+    "subcategory": "Laptop Issue",
+    "application": "Hardware",
+    "symptoms": [
+      "Battery life drops from 100% to 20% in under 90 minutes",
+      "Cooling fan running at maximum speed constantly",
+      "Laptop chassis uncomfortably hot to touch"
+    ],
+    "error_codes": ["THERMAL_THROTTLE_DETECTED", "BATTERY_HEALTH_WARN"],
+    "keywords": ["laptop", "battery", "fan", "heat", "overheating", "power", "drain", "hardware", "cpu"],
+    "resolution_steps": [
+      "1. Open Task Manager and sort by CPU usage to identify runaway background processes (e.g. indexers or antivirus).",
+      "2. Check battery health report: run 'powercfg /batteryreport' in Command Prompt and inspect full charge capacity.",
+      "3. Reset the system Power Plan to 'Balanced' and ensure thermal profile is set to 'Cool' or 'Optimized' in BIOS/OEM manager.",
+      "4. Clean air vents with compressed air; ensure laptop is operating on a flat, hard surface.",
+      "5. If battery cycle count exceeds 800 cycles or health < 60%, schedule hardware battery replacement ticket."
+    ],
+    "estimated_mins": 10,
+    "confidence_threshold": 0.45
+  },
+  {
+    "article_id": "KB-010",
+    "title": "Wireless Keyboard and Bluetooth Mouse Unresponsive or Lagging",
+    "category": "Hardware",
+    "subcategory": "Keyboard/Mouse",
+    "application": "Hardware",
+    "symptoms": [
+      "Keyboard keystrokes repeat or lag by several seconds",
+      "Mouse cursor stutters or freezes across the screen",
+      "Bluetooth device status shows 'Paired' but not connected"
+    ],
+    "error_codes": ["BT_DEV_UNRESPONSIVE", "HID_INPUT_LAG"],
+    "keywords": ["keyboard", "mouse", "bluetooth", "wireless", "dongle", "stutter", "lag", "unresponsive", "trackpad"],
+    "resolution_steps": [
+      "1. Verify batteries in keyboard and mouse; replace with fresh AA/AAA batteries or recharge via USB-C.",
+      "2. If using a 2.4GHz USB receiver dongle, move it away from USB 3.0 ports which cause radio frequency interference (use front port or extension cable).",
+      "3. In Device Manager, expand 'Bluetooth', right-click the Bluetooth adapter, and uncheck 'Allow computer to turn off this device to save power'.",
+      "4. Remove the Bluetooth device from Settings > Devices, reboot workstation, and re-pair.",
+      "5. Reinstall Bluetooth driver from manufacturer support catalog."
+    ],
+    "estimated_mins": 6,
+    "confidence_threshold": 0.45
+  },
+  {
+    "article_id": "KB-011",
+    "title": "NovaMail Sync Stalled and Mailbox Storage Quota Exceeded",
+    "category": "Email & Collaboration",
+    "subcategory": "Email Issue",
+    "application": "NovaMail",
+    "symptoms": [
+      "Emails not updating; status bar shows 'Disconnected' or 'Sync pending'",
+      "Bounce-back notification: '554 5.2.2 Mailbox is full'",
+      "Incoming messages are rejected with quota error"
+    ],
+    "error_codes": ["ERR-554-5.2.2", "MAILBOX_FULL", "SYNC_STALLED"],
+    "keywords": ["novamail", "email", "mailbox", "quota", "full", "sync", "bounce", "storage", "inbox"],
+    "resolution_steps": [
+      "1. Advise user to empty the 'Deleted Items' and 'Junk Email' folders permanently.",
+      "2. Filter inbox by size (items > 15MB) and export heavy video/PDF attachments to corporate OneDrive / GDrive.",
+      "3. Trigger Online Archive: in NovaMail account settings, enable 'Auto-Archive items older than 6 months'.",
+      "4. In NovaMail File menu, click 'Compact Now' under Data File Properties to reclaim unallocated disk space.",
+      "5. If business necessity dictates, submit Service Catalog request for Mailbox Quota Increase (Tier 2 approval)."
+    ],
+    "estimated_mins": 8,
+    "confidence_threshold": 0.45
+  },
+  {
+    "article_id": "KB-012",
+    "title": "Meeting Audio and Microphone Permission Denied in Chat & Teams",
+    "category": "Email & Collaboration",
+    "subcategory": "Teams/Chat Issue",
+    "application": "WorkSphere",
+    "symptoms": [
+      "Other participants cannot hear user during voice calls",
+      "WorkSphere Teams displays banner: 'Microphone is disabled in system privacy settings'",
+      "Mute toggle is greyed out or shows red warning icon"
+    ],
+    "error_codes": ["MIC_PERM_DENIED", "AUDIO_CAPTURE_ERR_04"],
+    "keywords": ["teams", "chat", "audio", "microphone", "mic", "call", "meeting", "permission", "worksphere", "voice"],
+    "resolution_steps": [
+      "1. Check physical hardware mute switch or in-line volume wheel on headset cable.",
+      "2. Open OS Privacy Settings > Microphone, and toggle 'Allow desktop apps to access your microphone' to ON.",
+      "3. In WorkSphere Teams settings > Devices, explicitly select the USB Headset as primary Audio Device instead of 'Default Communication Device'.",
+      "4. Make a test call via Teams Settings > Devices > 'Make a test call' to verify audio waveform capture.",
+      "5. Quit WorkSphere, delete %APPDATA%\\WorkSphere\\teams_audio_cache, and restart the app."
+    ],
+    "estimated_mins": 5,
+    "confidence_threshold": 0.45
+  },
+  {
+    "article_id": "KB-013",
+    "title": "Shared Calendar Delegation and Meeting Synchronization Error",
+    "category": "Email & Collaboration",
+    "subcategory": "Calendar Issue",
+    "application": "NovaMail",
+    "symptoms": [
+      "Meeting invites accepted on mobile do not show up on desktop calendar",
+      "Error: 'You do not have permission to modify this calendar event'",
+      "Ghost calendar appointments that cannot be deleted or forwarded"
+    ],
+    "error_codes": ["CAL_DELEGATE_ERR_403", "SYNC_CONFLICT_ITEM"],
+    "keywords": ["calendar", "meeting", "invite", "schedule", "sync", "delegation", "permission", "novamail", "appointment"],
+    "resolution_steps": [
+      "1. Verify delegate permissions on the primary mailbox: Account Settings > Delegate Access > Editor.",
+      "2. In NovaMail Calendar view, right-click the affected shared calendar, select Properties > Clear Offline Items.",
+      "3. Click the 'Send/Receive All Folders' button (F9) to force a re-download of calendar items from Exchange server.",
+      "4. Disable cached Exchange mode for shared folders: Account Settings > Change > More Settings > Advanced > Uncheck 'Download shared folders'.",
+      "5. Restart NovaMail to apply new synchronization profile."
+    ],
+    "estimated_mins": 6,
+    "confidence_threshold": 0.45
+  },
+  {
+    "article_id": "KB-014",
+    "title": "Orion HR Portal Session Timeout During Form Submission",
+    "category": "Software & Applications",
+    "subcategory": "Application Login",
+    "application": "Orion HR Portal",
+    "symptoms": [
+      "User submits timesheet or reimbursement and gets bounced to login screen",
+      "Error: HTTP 419 Page Expired / CSRF Token Mismatch",
+      "Form data lost upon re-authenticating"
+    ],
+    "error_codes": ["HTTP-419-CSRF", "SESSION_TIMEOUT_EXP"],
+    "keywords": ["orion", "session timeout", "csrf", "timesheet", "form submission", "token mismatch", "hr portal", "login"],
+    "resolution_steps": [
+      "1. Advise user not to keep Orion HR tabs open overnight or longer than 30 minutes without active interaction.",
+      "2. Perform a hard browser refresh: Ctrl + F5 (Windows) or Cmd + Shift + R (macOS) to update security cookie tokens.",
+      "3. Clear third-party cookies for 'hr.corp.internal' in browser privacy preferences.",
+      "4. Verify workstation clock synchronization: if system time drifts by > 3 minutes, SAML SSO tokens fail validation.",
+      "5. If issue persists across browsers, reset the user's web session from the Orion Admin dashboard."
+    ],
+    "estimated_mins": 4,
+    "confidence_threshold": 0.45
+  }
+]
